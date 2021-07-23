@@ -9,7 +9,7 @@ namespace InventoryTest.ContainersForItems
 {
     internal class Table : ItemsContainer
     {
-        private float _capacity;
+        private readonly float _capacity;
 
         public Table(float capacity)
         {

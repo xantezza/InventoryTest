@@ -9,11 +9,20 @@ namespace InventoryTest.ContainersForItems
 {
     internal class Inventory : ItemsContainer
     {
-        private float _capacity;
+        private static Inventory _instance;
+        private static readonly float _capacity = 100;
 
-        public Inventory(float capacity)
+        private Inventory()
         {
-            _capacity = capacity;
+        }
+
+        public static Inventory GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new Inventory();
+            }
+            return _instance;
         }
 
         public override float Capacity => _capacity;

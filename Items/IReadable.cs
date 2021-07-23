@@ -8,6 +8,6 @@ namespace InventoryTest.Items
 {
     internal interface IReadable
     {
-        public string Read();
+        string Read();
     }
 }

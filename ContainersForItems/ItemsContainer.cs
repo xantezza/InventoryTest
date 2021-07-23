@@ -25,20 +25,38 @@ namespace InventoryTest.ContainersForItems
 
         public void InteractWith(int index)
         {
+            _items[index].Interact(this);
         }
 
-        public void ReplaceItem(IItem item, ItemsContainer wherefrom)
+        public void ReplaceItemToInventory(IItem item, ItemsContainer wherefrom)
         {
             if (item.WeightKG > GetRemainingCapacity())
             {
                 Console.WriteLine("The item is too heavy");
+                Console.ReadKey();
                 return;
             }
-            _items.Add(item);
+            if (item is ICurrency)
+            {
+                var items = Inventory.GetInstance().GetItems();
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i] is ICurrency && items[i].Name == item.Name)
+                    {
+                        var currencyInInventory = items[i] as ICurrency;
+                        var currencyInItem = item as ICurrency;
+                        currencyInInventory.Amount += currencyInItem.Amount;
+                    }
+                }
+            }
+            else
+            {
+                _items.Add(item);
+            }
             wherefrom.RemoveItem(item);
         }
 
-        private void RemoveItem(IItem item)
+        public void RemoveItem(IItem item)
         {
             _items.Remove(item);
         }

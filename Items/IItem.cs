@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventoryTest.ContainersForItems;
 
 namespace InventoryTest.Items
 {
     internal interface IItem
     {
-        public string Name { get; }
-        public float WeightKG { get; }
+        string Name { get; }
+        float WeightKG { get; }
 
-        public void Interact();
+        void Interact(ItemsContainer containerOfItem);
     }
 }

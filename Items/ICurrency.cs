@@ -8,6 +8,6 @@ namespace InventoryTest.Items
 {
     internal interface ICurrency
     {
-        public float Amount { get; }
+        float Amount { get; set; }
     }
 }

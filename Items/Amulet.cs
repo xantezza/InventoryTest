@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventoryTest.ContainersForItems;
+using System;
 
 namespace InventoryTest.Items
 {
     internal class Amulet : IItem
     {
-        private string _name;
+        private readonly string _name;
 
-        private float _weightKG;
+        private readonly float _weightKG;
 
         public Amulet(string name, float weightKG)
         {
@@ -21,11 +18,32 @@ namespace InventoryTest.Items
 
         public override string ToString()
         {
-            return _name + " " + _weightKG + "\n";
+            return "Amulet: " + _name + ", weight: " + _weightKG + "\n";
         }
 
-        void IItem.Interact()
+        void IItem.Interact(ItemsContainer containerOfItem)
         {
+            {
+                Console.WriteLine(
+                    "1 Take or Drop \n" +
+                    "2 Back");
+
+                if (int.TryParse(Console.ReadLine(), out int response))
+                {
+                    switch (response)
+                    {
+                        case 1:
+                            if (containerOfItem is Inventory)
+                                containerOfItem.RemoveItem(this);
+                            else
+                                Inventory.GetInstance().ReplaceItemToInventory(this, containerOfItem);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
         }
 
         string IItem.Name => _name;
